@@ -18,7 +18,7 @@ export function CareShell({
   subtitle: string;
   items: CareNavItem[];
 }) {
-  const { online } = useSilirual();
+  const { online, t } = useSilirual();
 
   return (
     <div className="min-h-screen bg-background">
@@ -27,7 +27,7 @@ export function CareShell({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <Link to="/" className="font-display text-xl font-semibold">
-                SILIRUAL
+                CiliRual
               </Link>
               <p className="text-sm text-muted-foreground">
                 {title} · {subtitle}
@@ -39,7 +39,7 @@ export function CareShell({
                   online ? "bg-success-soft text-success" : "bg-warning-soft text-warning-foreground"
                 }`}
               >
-                {online ? "🟢 Synced" : "🟡 Offline — will sync later"}
+                {online ? "🟢 " + t("common.synced") : "🟡 " + t("common.offline")}
               </span>
               <RoleSwitcher />
             </div>
@@ -64,8 +64,7 @@ export function CareShell({
         <Outlet />
       </main>
       <footer className="mx-auto w-full max-w-6xl px-5 pb-10 text-sm text-muted-foreground">
-        AI-generated activity insights are shown for engagement support only — not a medical
-        diagnosis.
+        {t("app.disclaimer")}
       </footer>
     </div>
   );

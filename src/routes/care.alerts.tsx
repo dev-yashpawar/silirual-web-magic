@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { alerts, members } from "@/lib/silirual/demo-data";
+import { useSilirual } from "@/lib/silirual/store";
 
 export const Route = createFileRoute("/care/alerts")({
   component: CareAlerts,
 });
 
 function CareAlerts() {
+  const { t } = useSilirual();
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -27,7 +29,7 @@ function CareAlerts() {
               {a.emoji}
             </span>
             <div>
-              <p className="text-xl font-medium">{a.titleKey}</p>
+              <p className="text-xl font-medium">{t(a.titleKey)}</p>
               <p className="text-lg text-muted-foreground">{a.detail}</p>
               <p className="text-sm text-muted-foreground">
                 {members.find((m) => m.id === a.memberId)?.name} · {a.when}

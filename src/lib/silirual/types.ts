@@ -1,8 +1,25 @@
 export type Role = "member" | "guardian" | "professional";
 
-export type LangCode = "en" | "hi" | "as" | "bn" | "mni";
+export type LangCode = "en" | "hi" | "as" | "bn" | "mni" | "ne" | "brx" | "kha" | "lus" | "kok";
 
 export type TextSize = "normal" | "large" | "xlarge";
+
+export type GuardianPermission =
+  | "view_activity"
+  | "view_progress"
+  | "manage_reminders"
+  | "upload_memories"
+  | "view_memories"
+  | "receive_alerts"
+  | "manage_settings";
+
+export type ProfessionalPermission =
+  | "view_history"
+  | "view_trends"
+  | "view_adherence"
+  | "view_alerts"
+  | "add_observations"
+  | "view_reports";
 
 export interface Settings {
   language: LangCode;
@@ -33,15 +50,15 @@ export interface Guardian {
   relation: string;
   memberIds: string[];
   language: LangCode;
-  permissions: string[];
+  permissions: GuardianPermission[];
 }
 
 export interface CareProfessional {
   id: string;
   name: string;
-  kind: "ASHA Worker" | "Doctor" | "Nurse" | "Specialist" | "Counsellor";
+  kind: "ASHA Worker" | "Doctor" | "Nurse" | "Specialist" | "Counsellor" | "Other Healthcare Professional";
   memberIds: string[];
-  permissions: string[];
+  permissions: ProfessionalPermission[];
 }
 
 export interface Connection {
@@ -75,6 +92,7 @@ export interface Memory {
   story: string;
   theme: "family" | "home" | "festival" | "nature" | "music" | "people";
   emoji: string;
+  imageUrl?: string;
   offline: boolean;
 }
 
@@ -147,4 +165,30 @@ export interface ProgressPoint {
   memories: number;
   adherence: number;
   hydration: number;
+}
+
+export interface NostalgiaPreference {
+  memberId: string;
+  preferredThemes: string[];
+  engagementScore: number;
+  lastEngaged: string;
+}
+
+export interface DailyActivity {
+  id: string;
+  memberId: string;
+  date: string;
+  gamesPlayed: number;
+  memoriesViewed: number;
+  remindersCompleted: number;
+  remindersTotal: number;
+  hydrationGlasses: number;
+  hydrationGoal: number;
+}
+
+export interface RootsCard {
+  key: string;
+  emoji: string;
+  titleKey: string;
+  detailKey: string;
 }

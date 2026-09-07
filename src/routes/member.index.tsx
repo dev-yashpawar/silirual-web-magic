@@ -21,12 +21,11 @@ function greetingKey() {
 }
 
 function MySpace() {
-  const { t, member, reminders, toggleReminder, buzz, speak, memoryResponses, answerMemory } =
+  const { t, member, reminders, toggleReminder, snoozeReminder, buzz, speak, memoryResponses, answerMemory, hydrationCount, hydrationGoal } =
     useSilirual();
   const memory = memoryOfTheDay(member.id);
   const answered = memoryResponses[memory.id];
   const nextThings = reminders.filter((r) => !r.done).slice(0, 3);
-  const water = 3;
 
   return (
     <div className="flex flex-col gap-5">
@@ -59,7 +58,7 @@ function MySpace() {
               r.kind === "medicine"
                 ? t("reminders.medicineBody")
                 : r.kind === "hydration"
-                  ? `You have had ${water} of 5 glasses.`
+                  ? t("member.hydrationBody", { count: hydrationCount, goal: hydrationGoal })
                   : `At ${r.time}`
             }
             speakText={`${t(r.labelKey)}. ${r.kind === "medicine" ? t("reminders.medicineBody") : ""}`}
@@ -76,7 +75,11 @@ function MySpace() {
                 >
                   {t("common.done")}
                 </Button>
-                <Button variant="calm" size="big" onClick={() => buzz(12)}>
+                <Button variant="calm" size="big" onClick={() => {
+                  buzz(12);
+                  snoozeReminder(r.id);
+                  speak(t("common.later"));
+                }}>
                   {t("common.later")}
                 </Button>
               </>
@@ -89,8 +92,8 @@ function MySpace() {
         emoji="🧠"
         tone="primary"
         title={t("reminders.activity")}
-        body="Ready for a little memory exercise?"
-        speakText="Ready for a little memory exercise?"
+        body={t("member.activityReady")}
+        speakText={t("member.activityReady")}
         action={
           <Button variant="gentle" size="big" asChild>
             <Link to="/member/games">{t("common.start")}</Link>

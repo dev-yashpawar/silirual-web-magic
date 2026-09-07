@@ -1,18 +1,37 @@
-import { gameSessions, memories } from "./demo-data";
-import type { GameId, GameSession } from "./types";
+import { gameSessions as seedSessions, memories } from "./demo-data";
+import type { GameId, GameSession, Memory } from "./types";
 
 /**
- * Simulated personalisation engine for the demo build.
- * Outputs are activity suggestions only — never a medical judgement.
+ * Simulated AI personalization engine for CiliRual.
+ * AI-generated activity insight — not a medical diagnosis.
  */
 
-export function nextDifficulty(sessions: GameSession[], gameId: GameId, current: number) {
-  const recent = sessions.filter((s) => s.gameId === gameId).slice(-3);
-  if (recent.length === 0) return current;
-  const avg = recent.reduce((sum, s) => sum + s.accuracy, 0) / recent.length;
-  if (avg >= 85) return current + 1;
-  if (avg < 60) return Math.max(1, current - 1);
-  return current;
+/** Determine next difficulty based on recent performance. */
+export function nextDifficulty(
+  sessions: GameSession[],
+  gameId: GameId,
+  currentLevel: number,
+): number {
+  const recent = sessions
+    .filter((s) => s.gameId === gameId)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 3);
+
+  if (recent.length < 2) return currentLevel;
+
+  const avgAccuracy = recent.reduce((sum, s) => sum + s.accuracy, 0) / recent.length;
+  const avgResponse = recent.reduce((sum, s) => sum + s.responseMs, 0) / recent.length;
+
+  // If consistently strong (>= 85% accuracy and fast), step up
+  if (avgAccuracy >= 85 && avgResponse < 3000) {
+    return currentLevel + 1;
+  }
+  // If struggling (< 55% accuracy or very slow), step down
+  if (avgAccuracy < 55 || avgResponse > 5000) {
+    return Math.max(1, currentLevel - 1);
+  }
+  // Otherwise maintain
+  return currentLevel;
 }
 
 export interface Insight {
@@ -20,35 +39,111 @@ export interface Insight {
   value: "High" | "Strong" | "Moderate" | "Gentle";
 }
 
-export function insightsFor(memberId: string): Insight[] {
-  const sessions = gameSessions.filter((s) => s.memberId === memberId);
-  const avg = sessions.length
-    ? sessions.reduce((sum, s) => sum + s.accuracy, 0) / sessions.length
-    : 70;
+/** Synthesize engagement metrics from game session data. */
+export function insightsFor(memberId: string, liveSessions: GameSession[] = []): Insight[] {
+  const all = [...seedSessions, ...liveSessions].filter((s) => s.memberId === memberId);
+  const avg = all.length > 0
+    ? all.reduce((sum, s) => sum + s.accuracy, 0) / all.length
+    : 50;
+
+  const level = (v: number): Insight["value"] =>
+    v >= 85 ? "High" : v >= 70 ? "Strong" : v >= 50 ? "Moderate" : "Gentle";
+
   return [
-    { label: "Memory recognition", value: avg > 80 ? "High" : "Moderate" },
-    { label: "Visual recognition", value: avg > 75 ? "Strong" : "Moderate" },
-    { label: "Attention", value: avg > 85 ? "Strong" : "Moderate" },
-    { label: "Routine recall", value: "Moderate" },
-    { label: "Nostalgia engagement", value: "High" },
+    { label: "Memory recognition", value: level(avg + 5) },
+    { label: "Visual recognition", value: level(avg + 8) },
+    { label: "Attention", value: level(avg) },
+    { label: "Routine recall", value: level(avg - 5) },
+    { label: "Nostalgia engagement", value: level(avg + 10) },
   ];
 }
 
-export function recommendation(memberId: string) {
-  const themes = ["Family", "Music", "Hometown", "Festivals"];
-  const sessions = gameSessions.filter((s) => s.memberId === memberId);
-  const best = [...sessions].sort((a, b) => b.accuracy - a.accuracy)[0];
-  const gameId: GameId = best?.gameId ?? "match";
+const GAME_NAMES: Record<GameId, string> = {
+  match: "Memory Match",
+  pattern: "Remember the Pattern",
+  find: "Three Cups",
+  signals: "Memory Signals",
+};
+
+const THEMES = ["Family", "Music", "Hometown", "Festivals", "Nature"];
+
+/** Recommend a game and theme based on engagement patterns. */
+export function recommendation(memberId: string, liveSessions: GameSession[] = []) {
+  const all = [...seedSessions, ...liveSessions].filter((s) => s.memberId === memberId);
+
+  // Find the game with highest average accuracy (most engaging)
+  const gameScores: Partial<Record<GameId, { total: number; count: number }>> = {};
+  for (const s of all) {
+    const entry = gameScores[s.gameId] ?? { total: 0, count: 0 };
+    entry.total += s.accuracy;
+    entry.count += 1;
+    gameScores[s.gameId] = entry;
+  }
+
+  // Find least-played game for variety, or most successful for engagement
+  const gameIds: GameId[] = ["match", "pattern", "find", "signals"];
+  let bestGame: GameId = "match";
+  let minPlays = Infinity;
+
+  for (const gid of gameIds) {
+    const entry = gameScores[gid];
+    if (!entry || entry.count < minPlays) {
+      minPlays = entry?.count ?? 0;
+      bestGame = gid;
+    }
+  }
+
+  // If the user has strong engagement with one game, sometimes recommend it
+  if (all.length > 4) {
+    let highestAvg = 0;
+    for (const gid of gameIds) {
+      const entry = gameScores[gid];
+      if (entry && entry.count >= 2) {
+        const avg = entry.total / entry.count;
+        if (avg > highestAvg) {
+          highestAvg = avg;
+          bestGame = gid;
+        }
+      }
+    }
+  }
+
+  const dayIndex = new Date().getDate();
+  const theme = THEMES[dayIndex % THEMES.length]!;
+
+  const reasons: Record<GameId, string> = {
+    match: "Member has shown strong engagement with visual matching activities.",
+    pattern: "Sequence memory exercises support sustained attention.",
+    find: "Visual tracking activities encourage focused observation.",
+    signals: "Signal recall exercises support short-term memory engagement.",
+  };
+
   return {
-    themes,
-    gameId,
-    title: "Family Memory Match",
-    reason: "Member has shown strong engagement with family-related memories.",
+    gameId: bestGame,
+    title: GAME_NAMES[bestGame],
+    theme,
+    reason: reasons[bestGame],
   };
 }
 
-export function memoryOfTheDay(memberId: string) {
+const FALLBACK_MEMORY: Memory = {
+  id: "fallback",
+  memberId: "any",
+  title: "A Beautiful Day",
+  people: "Family",
+  place: "Home",
+  year: 2020,
+  occasion: "An ordinary day",
+  story: "Sometimes the most beautiful memories are the quiet, ordinary moments we share together.",
+  theme: "family",
+  emoji: "🌼",
+  offline: true,
+};
+
+/** Select a memory for today based on calendar day. Safe for empty member data. */
+export function memoryOfTheDay(memberId: string): Memory {
   const list = memories.filter((m) => m.memberId === memberId);
-  const dayIndex = new Date().getDate() % Math.max(1, list.length);
-  return list[dayIndex] ?? list[0]!;
+  if (list.length === 0) return { ...FALLBACK_MEMORY, memberId };
+  const dayIndex = new Date().getDate() % list.length;
+  return list[dayIndex] ?? list[0] ?? { ...FALLBACK_MEMORY, memberId };
 }

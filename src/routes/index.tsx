@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Navigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { HeartHandshake, Stethoscope, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,13 +10,13 @@ import type { Role } from "@/lib/silirual/types";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SILIRUAL — Let’s Remember Together" },
+      { title: "CiliRual — Let’s Remember Together" },
       {
         name: "description",
         content:
-          "SILIRUAL is a gentle companion for cognitive activities, daily routines and meaningful memories, for members, family guardians and care professionals.",
+          "CiliRual is a gentle companion for cognitive activities, daily routines and meaningful memories, for members, family guardians and care professionals.",
       },
-      { property: "og:title", content: "SILIRUAL — Let’s Remember Together" },
+      { property: "og:title", content: "CiliRual — Let’s Remember Together" },
       {
         property: "og:description",
         content:
@@ -36,14 +36,20 @@ const ROLES: { role: Role; icon: typeof UserRound; titleKey: string; descKey: st
 ];
 
 function Welcome() {
-  const { t, setRole, setLanguage, settings, speak, buzz, finishOnboarding } = useSilirual();
+  const { t, setRole, setLanguage, settings, speak, buzz, finishOnboarding, onboarded, role } = useSilirual();
   const [step, setStep] = useState<"language" | "role">("language");
   const navigate = useNavigate();
+
+  if (onboarded) {
+    if (role === "member") return <Navigate to="/member" />;
+    if (role === "guardian") return <Navigate to="/guardian" />;
+    if (role === "professional") return <Navigate to="/care" />;
+  }
 
   return (
     <main className="mx-auto w-full max-w-4xl px-5 py-10 sm:py-16">
       <header className="text-center">
-        <p className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">SILIRUAL</p>
+        <p className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">CiliRual</p>
         <h1 className="mt-4 text-3xl font-semibold sm:text-4xl">{t("onboarding.welcome")}</h1>
         <p className="mt-3 text-xl text-primary">{t("app.tagline")}</p>
         <p className="mx-auto mt-2 max-w-2xl text-lg text-muted-foreground">{t("app.support")}</p>
@@ -75,7 +81,7 @@ function Welcome() {
                 </span>
                 {!lang.speechLikely ? (
                   <span className="rounded-full bg-secondary px-3 py-1 text-sm text-muted-foreground">
-                    Voice may read in a nearby language
+                    {t("voice.fallback")}
                   </span>
                 ) : null}
               </button>

@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { alerts } from "@/lib/silirual/demo-data";
+import { useSilirual } from "@/lib/silirual/store";
 
 export const Route = createFileRoute("/guardian/alerts")({
   component: GuardianAlerts,
 });
 
 function GuardianAlerts() {
+  const { t } = useSilirual();
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -27,7 +29,7 @@ function GuardianAlerts() {
               {a.emoji}
             </span>
             <div>
-              <p className="text-xl font-medium">{a.titleKey}</p>
+              <p className="text-xl font-medium">{t(a.titleKey)}</p>
               <p className="text-lg text-muted-foreground">{a.detail}</p>
               <p className="text-sm text-muted-foreground">{a.when}</p>
             </div>

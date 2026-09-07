@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { familyMembers, members, rootsCards } from "@/lib/silirual/demo-data";
+import { familyMembers, members, rootsCardsData } from "@/lib/silirual/demo-data";
+import { useSilirual } from "@/lib/silirual/store";
 
 export const Route = createFileRoute("/guardian/member")({
   component: MemberProfile,
 });
 
 function MemberProfile() {
-  const member = members[0]!;
+  const { t, member } = useSilirual();
+  const roots = rootsCardsData[member.id] ?? [];
+
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-3xl font-semibold">{member.name}</h1>
@@ -17,8 +20,8 @@ function MemberProfile() {
           ["Region", member.region],
           ["Hometown", member.hometown],
           ["Occupation", member.occupation],
-          ["Interface language", "Assamese (অসমীয়া)"],
-          ["Connection code", member.connectionCode],
+          [t("profile.language"), member.language.toUpperCase()],
+          [t("connection.code"), member.connectionCode],
         ].map(([label, value]) => (
           <p key={label} className="text-lg">
             <span className="text-muted-foreground">{label}: </span>
@@ -58,14 +61,14 @@ function MemberProfile() {
       <section className="card-soft bg-card p-5">
         <h2 className="text-2xl font-semibold">Cultural background</h2>
         <p className="text-base text-muted-foreground">
-          Used to suggest familiar songs, places and festivals — kept specific to Asha’s own region.
+          Used to suggest familiar songs, places and festivals — kept specific to {member.name}'s own region.
         </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {rootsCards.map((c) => (
+          {roots.map((c) => (
             <p key={c.key} className="text-lg">
               <span aria-hidden="true">{c.emoji} </span>
-              <span className="font-medium">{c.title}: </span>
-              <span className="text-muted-foreground">{c.detail}</span>
+              <span className="font-medium">{t(c.titleKey)}: </span>
+              <span className="text-muted-foreground">{t(c.detailKey)}</span>
             </p>
           ))}
         </div>

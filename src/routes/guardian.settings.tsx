@@ -18,7 +18,7 @@ function GuardianSettings() {
       <section className="card-soft bg-card p-5">
         <h2 className="text-2xl font-semibold">My interface language</h2>
         <p className="text-base text-muted-foreground">
-          Your language can differ from the member’s. Asha reads SILIRUAL in Assamese.
+          Your language can differ from the member’s. Asha reads CiliRual in Assamese.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {LANGUAGES.map((l) => (

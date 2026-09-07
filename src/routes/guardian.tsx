@@ -12,16 +12,26 @@ const items: CareNavItem[] = [
   { to: "/guardian/settings", label: "Settings" },
 ];
 
+import { members, guardians } from "@/lib/silirual/demo-data";
+
+function GuardianLayout() {
+  const g = guardians[0]!;
+  const m = members.find((m) => m.id === g.memberId)!;
+  return (
+    <CareShell title="Family Guardian" subtitle={`${g.name} · ${g.relation} of ${m.name}`} items={items} />
+  );
+}
+
 export const Route = createFileRoute("/guardian")({
   head: () => ({
     meta: [
-      { title: "Family Guardian — SILIRUAL" },
+      { title: "Family Guardian — CiliRual" },
       {
         name: "description",
         content:
           "Follow your loved one's day, activity patterns, reminders and memories in one warm, easy overview.",
       },
-      { property: "og:title", content: "Family Guardian — SILIRUAL" },
+      { property: "og:title", content: "Family Guardian — CiliRual" },
       {
         property: "og:description",
         content: "A warm overview of daily activity, progress, reminders and shared memories.",
@@ -30,7 +40,5 @@ export const Route = createFileRoute("/guardian")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => (
-    <CareShell title="Family Guardian" subtitle="Anita · Daughter of Asha" items={items} />
-  ),
+  component: GuardianLayout,
 });

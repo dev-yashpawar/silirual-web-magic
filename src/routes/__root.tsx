@@ -80,13 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SILIRUAL — Let’s Remember Together" },
+      { title: "CiliRual — Let’s Remember Together" },
       {
         name: "description",
         content:
           "A gentle digital companion for cognitive activities, daily routines and meaningful memories.",
       },
-      { property: "og:title", content: "SILIRUAL — Let’s Remember Together" },
+      { property: "og:title", content: "CiliRual — Let’s Remember Together" },
       {
         property: "og:description",
         content:

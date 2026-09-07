@@ -8,9 +8,9 @@ export const Route = createFileRoute("/guardian/")({
 });
 
 function GuardianDashboard() {
-  const { reminders } = useSilirual();
+  const { reminders, t, gameSessions } = useSilirual();
   const member = members[0]!;
-  const insights = insightsFor(member.id);
+  const insights = insightsFor(member.id, gameSessions);
   const rec = recommendation(member.id);
 
   return (
@@ -44,7 +44,7 @@ function GuardianDashboard() {
                 {r.emoji}
               </span>
               <div className="flex-1">
-                <p className="text-lg font-medium">{r.labelKey.split(".")[1]}</p>
+                <p className="text-lg font-medium">{t(r.labelKey)}</p>
                 <p className="text-sm text-muted-foreground">{r.time}</p>
               </div>
               <span
@@ -94,7 +94,7 @@ function GuardianDashboard() {
                   {a.emoji}
                 </span>
                 <div>
-                  <p className="text-lg font-medium">{a.titleKey}</p>
+                  <p className="text-lg font-medium">{t(a.titleKey)}</p>
                   <p className="text-base text-muted-foreground">{a.detail}</p>
                   <p className="text-sm text-muted-foreground">{a.when}</p>
                 </div>

@@ -9,15 +9,15 @@ export const Route = createFileRoute("/member/games/")({
 });
 
 const GAMES: { id: GameId; to: "/member/games/pattern" | "/member/games/find" | "/member/games/match" | "/member/games/signals"; emoji: string; titleKey: string; descKey: string }[] = [
-  { id: "pattern", to: "/member/games/pattern", emoji: "🟦", titleKey: "games.pattern", descKey: "games.patternDesc" },
-  { id: "find", to: "/member/games/find", emoji: "🥣", titleKey: "games.find", descKey: "games.findDesc" },
-  { id: "match", to: "/member/games/match", emoji: "❔", titleKey: "games.match", descKey: "games.matchDesc" },
-  { id: "signals", to: "/member/games/signals", emoji: "🔵", titleKey: "games.signals", descKey: "games.signalsDesc" },
+  { id: "match", to: "/member/games/match", emoji: "🃏", titleKey: "games.matchFull", descKey: "games.matchDesc" },
+  { id: "signals", to: "/member/games/signals", emoji: "🔵", titleKey: "games.signalsFull", descKey: "games.signalsDesc" },
+  { id: "find", to: "/member/games/find", emoji: "🥣", titleKey: "games.findFull", descKey: "games.findDesc" },
+  { id: "pattern", to: "/member/games/pattern", emoji: "🟦", titleKey: "games.patternFull", descKey: "games.patternDesc" },
 ];
 
 function GamesList() {
-  const { t, bestLevels, member, buzz } = useSilirual();
-  const rec = recommendation(member.id);
+  const { t, bestLevels, member, buzz, gameSessions } = useSilirual();
+  const rec = recommendation(member.id, gameSessions);
 
   return (
     <div className="flex flex-col gap-5">
@@ -27,7 +27,7 @@ function GamesList() {
       </div>
 
       <p className="rounded-2xl bg-primary-soft p-4 text-lg text-primary">
-        Suggested for you today: <strong>{t(GAMES.find((g) => g.id === rec.gameId)!.titleKey)}</strong>
+        {t("member.activityReady")} <strong>{t(GAMES.find((g) => g.id === rec.gameId)?.titleKey ?? "games.matchFull")}</strong>
       </p>
 
       {GAMES.map((g) => (

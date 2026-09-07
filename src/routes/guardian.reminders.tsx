@@ -14,7 +14,7 @@ const priorityLabel = {
 } as const;
 
 function GuardianReminders() {
-  const { reminders, toggleReminder } = useSilirual();
+  const { reminders, toggleReminder, t } = useSilirual();
 
   return (
     <div className="flex flex-col gap-6">
@@ -32,7 +32,7 @@ function GuardianReminders() {
               {r.emoji}
             </span>
             <div className="min-w-40 flex-1">
-              <p className="text-lg font-medium capitalize">{r.kind}</p>
+              <p className="text-lg font-medium">{t(r.labelKey)}</p>
               <p className="text-sm text-muted-foreground">
                 {r.time} · {priorityLabel[r.priority]}
               </p>

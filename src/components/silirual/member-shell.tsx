@@ -1,7 +1,6 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { Gamepad2, HeartHandshake, House, ListChecks, UserRound } from "lucide-react";
 import { useSilirual } from "@/lib/silirual/store";
-import { RoleSwitcher } from "@/components/silirual/role-switcher";
 
 const items = [
   { to: "/member", labelKey: "nav.home", icon: House, exact: true },
@@ -19,7 +18,7 @@ export function MemberShell() {
       <header className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 px-4 py-3">
           <Link to="/member" className="font-display text-xl font-semibold tracking-tight">
-            SILIRUAL
+            CiliRual
           </Link>
           <span
             className={`rounded-full px-3 py-1 text-sm ${
@@ -30,9 +29,6 @@ export function MemberShell() {
           </span>
           <span className="text-lg font-medium">{member.name}</span>
         </div>
-        <div className="mx-auto w-full max-w-3xl px-4 pb-3">
-          <RoleSwitcher />
-        </div>
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 pb-32 pt-5">
@@ -40,7 +36,7 @@ export function MemberShell() {
       </main>
 
       <nav
-        aria-label={t("nav.home")}
+        aria-label="Main navigation"
         className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/98 backdrop-blur"
       >
         <div className="mx-auto grid w-full max-w-3xl grid-cols-5">

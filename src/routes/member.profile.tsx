@@ -10,13 +10,13 @@ import type { TextSize } from "@/lib/silirual/types";
 export const Route = createFileRoute("/member/profile")({
   head: () => ({
     meta: [
-      { title: "Profile & Comfort Settings — SILIRUAL" },
+      { title: "Profile & Comfort Settings — CiliRual" },
       {
         name: "description",
         content:
           "Choose text size, voice, gentle vibration, reduced motion and language, and see the family and carers who are connected.",
       },
-      { property: "og:title", content: "Profile & Comfort Settings — SILIRUAL" },
+      { property: "og:title", content: "Profile & Comfort Settings — CiliRual" },
       {
         property: "og:description",
         content: "Text size, voice, vibration, motion and language — set the way that feels right.",
