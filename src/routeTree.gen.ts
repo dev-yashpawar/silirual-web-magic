@@ -10,33 +10,358 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CareRouteImport } from './routes/care'
+import { Route as GuardianRouteImport } from './routes/guardian'
+import { Route as MemberRouteImport } from './routes/member'
+import { Route as CareIndexRouteImport } from './routes/care.index'
+import { Route as CareActivitiesRouteImport } from './routes/care.activities'
+import { Route as CareAlertsRouteImport } from './routes/care.alerts'
+import { Route as CareAnalyticsRouteImport } from './routes/care.analytics'
+import { Route as CareMembersRouteImport } from './routes/care.members'
+import { Route as CareNotesRouteImport } from './routes/care.notes'
+import { Route as CareSettingsRouteImport } from './routes/care.settings'
+import { Route as GuardianIndexRouteImport } from './routes/guardian.index'
+import { Route as GuardianAlertsRouteImport } from './routes/guardian.alerts'
+import { Route as GuardianConnectionsRouteImport } from './routes/guardian.connections'
+import { Route as GuardianMemberRouteImport } from './routes/guardian.member'
+import { Route as GuardianMemoriesRouteImport } from './routes/guardian.memories'
+import { Route as GuardianProgressRouteImport } from './routes/guardian.progress'
+import { Route as GuardianRemindersRouteImport } from './routes/guardian.reminders'
+import { Route as GuardianSettingsRouteImport } from './routes/guardian.settings'
+import { Route as MemberIndexRouteImport } from './routes/member.index'
+import { Route as MemberDayRouteImport } from './routes/member.day'
+import { Route as MemberMemoriesRouteImport } from './routes/member.memories'
+import { Route as MemberProfileRouteImport } from './routes/member.profile'
+import { Route as MemberGamesIndexRouteImport } from './routes/member.games.index'
+import { Route as MemberGamesFindRouteImport } from './routes/member.games.find'
+import { Route as MemberGamesMatchRouteImport } from './routes/member.games.match'
+import { Route as MemberGamesPatternRouteImport } from './routes/member.games.pattern'
+import { Route as MemberGamesSignalsRouteImport } from './routes/member.games.signals'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareRoute = CareRouteImport.update({
+  id: '/care',
+  path: '/care',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuardianRoute = GuardianRouteImport.update({
+  id: '/guardian',
+  path: '/guardian',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberRoute = MemberRouteImport.update({
+  id: '/member',
+  path: '/member',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareIndexRoute = CareIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareActivitiesRoute = CareActivitiesRouteImport.update({
+  id: '/activities',
+  path: '/activities',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareAlertsRoute = CareAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareAnalyticsRoute = CareAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareMembersRoute = CareMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareNotesRoute = CareNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareSettingsRoute = CareSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => CareRoute,
+} as any)
+const GuardianIndexRoute = GuardianIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianAlertsRoute = GuardianAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianConnectionsRoute = GuardianConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianMemberRoute = GuardianMemberRouteImport.update({
+  id: '/member',
+  path: '/member',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianMemoriesRoute = GuardianMemoriesRouteImport.update({
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianProgressRoute = GuardianProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianRemindersRoute = GuardianRemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const GuardianSettingsRoute = GuardianSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => GuardianRoute,
+} as any)
+const MemberIndexRoute = MemberIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberDayRoute = MemberDayRouteImport.update({
+  id: '/day',
+  path: '/day',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberMemoriesRoute = MemberMemoriesRouteImport.update({
+  id: '/memories',
+  path: '/memories',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberProfileRoute = MemberProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberGamesIndexRoute = MemberGamesIndexRouteImport.update({
+  id: '/games/',
+  path: '/games/',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberGamesFindRoute = MemberGamesFindRouteImport.update({
+  id: '/games/find',
+  path: '/games/find',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberGamesMatchRoute = MemberGamesMatchRouteImport.update({
+  id: '/games/match',
+  path: '/games/match',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberGamesPatternRoute = MemberGamesPatternRouteImport.update({
+  id: '/games/pattern',
+  path: '/games/pattern',
+  getParentRoute: () => MemberRoute,
+} as any)
+const MemberGamesSignalsRoute = MemberGamesSignalsRouteImport.update({
+  id: '/games/signals',
+  path: '/games/signals',
+  getParentRoute: () => MemberRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/care': typeof CareRouteWithChildren
+  '/guardian': typeof GuardianRouteWithChildren
+  '/member': typeof MemberRouteWithChildren
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
+  '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
+  '/guardian/alerts': typeof GuardianAlertsRoute
+  '/guardian/connections': typeof GuardianConnectionsRoute
+  '/guardian/member': typeof GuardianMemberRoute
+  '/guardian/memories': typeof GuardianMemoriesRoute
+  '/guardian/progress': typeof GuardianProgressRoute
+  '/guardian/reminders': typeof GuardianRemindersRoute
+  '/guardian/settings': typeof GuardianSettingsRoute
+  '/member/day': typeof MemberDayRoute
+  '/member/memories': typeof MemberMemoriesRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/care/': typeof CareIndexRoute
+  '/guardian/': typeof GuardianIndexRoute
+  '/member/': typeof MemberIndexRoute
+  '/member/games/find': typeof MemberGamesFindRoute
+  '/member/games/match': typeof MemberGamesMatchRoute
+  '/member/games/pattern': typeof MemberGamesPatternRoute
+  '/member/games/signals': typeof MemberGamesSignalsRoute
+  '/member/games/': typeof MemberGamesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
+  '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
+  '/guardian/alerts': typeof GuardianAlertsRoute
+  '/guardian/connections': typeof GuardianConnectionsRoute
+  '/guardian/member': typeof GuardianMemberRoute
+  '/guardian/memories': typeof GuardianMemoriesRoute
+  '/guardian/progress': typeof GuardianProgressRoute
+  '/guardian/reminders': typeof GuardianRemindersRoute
+  '/guardian/settings': typeof GuardianSettingsRoute
+  '/member/day': typeof MemberDayRoute
+  '/member/memories': typeof MemberMemoriesRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/care': typeof CareIndexRoute
+  '/guardian': typeof GuardianIndexRoute
+  '/member': typeof MemberIndexRoute
+  '/member/games/find': typeof MemberGamesFindRoute
+  '/member/games/match': typeof MemberGamesMatchRoute
+  '/member/games/pattern': typeof MemberGamesPatternRoute
+  '/member/games/signals': typeof MemberGamesSignalsRoute
+  '/member/games': typeof MemberGamesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/care': typeof CareRouteWithChildren
+  '/guardian': typeof GuardianRouteWithChildren
+  '/member': typeof MemberRouteWithChildren
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
+  '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
+  '/guardian/alerts': typeof GuardianAlertsRoute
+  '/guardian/connections': typeof GuardianConnectionsRoute
+  '/guardian/member': typeof GuardianMemberRoute
+  '/guardian/memories': typeof GuardianMemoriesRoute
+  '/guardian/progress': typeof GuardianProgressRoute
+  '/guardian/reminders': typeof GuardianRemindersRoute
+  '/guardian/settings': typeof GuardianSettingsRoute
+  '/member/day': typeof MemberDayRoute
+  '/member/memories': typeof MemberMemoriesRoute
+  '/member/profile': typeof MemberProfileRoute
+  '/care/': typeof CareIndexRoute
+  '/guardian/': typeof GuardianIndexRoute
+  '/member/': typeof MemberIndexRoute
+  '/member/games/find': typeof MemberGamesFindRoute
+  '/member/games/match': typeof MemberGamesMatchRoute
+  '/member/games/pattern': typeof MemberGamesPatternRoute
+  '/member/games/signals': typeof MemberGamesSignalsRoute
+  '/member/games/': typeof MemberGamesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/care'
+    | '/guardian'
+    | '/member'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
+    | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
+    | '/guardian/alerts'
+    | '/guardian/connections'
+    | '/guardian/member'
+    | '/guardian/memories'
+    | '/guardian/progress'
+    | '/guardian/reminders'
+    | '/guardian/settings'
+    | '/member/day'
+    | '/member/memories'
+    | '/member/profile'
+    | '/care/'
+    | '/guardian/'
+    | '/member/'
+    | '/member/games/find'
+    | '/member/games/match'
+    | '/member/games/pattern'
+    | '/member/games/signals'
+    | '/member/games/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
+    | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
+    | '/guardian/alerts'
+    | '/guardian/connections'
+    | '/guardian/member'
+    | '/guardian/memories'
+    | '/guardian/progress'
+    | '/guardian/reminders'
+    | '/guardian/settings'
+    | '/member/day'
+    | '/member/memories'
+    | '/member/profile'
+    | '/care'
+    | '/guardian'
+    | '/member'
+    | '/member/games/find'
+    | '/member/games/match'
+    | '/member/games/pattern'
+    | '/member/games/signals'
+    | '/member/games'
+  id:
+    | '__root__'
+    | '/'
+    | '/care'
+    | '/guardian'
+    | '/member'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
+    | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
+    | '/guardian/alerts'
+    | '/guardian/connections'
+    | '/guardian/member'
+    | '/guardian/memories'
+    | '/guardian/progress'
+    | '/guardian/reminders'
+    | '/guardian/settings'
+    | '/member/day'
+    | '/member/memories'
+    | '/member/profile'
+    | '/care/'
+    | '/guardian/'
+    | '/member/'
+    | '/member/games/find'
+    | '/member/games/match'
+    | '/member/games/pattern'
+    | '/member/games/signals'
+    | '/member/games/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CareRoute: typeof CareRouteWithChildren
+  GuardianRoute: typeof GuardianRouteWithChildren
+  MemberRoute: typeof MemberRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +373,278 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/care': {
+      id: '/care'
+      path: '/care'
+      fullPath: '/care'
+      preLoaderRoute: typeof CareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guardian': {
+      id: '/guardian'
+      path: '/guardian'
+      fullPath: '/guardian'
+      preLoaderRoute: typeof GuardianRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member': {
+      id: '/member'
+      path: '/member'
+      fullPath: '/member'
+      preLoaderRoute: typeof MemberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/care/': {
+      id: '/care/'
+      path: '/'
+      fullPath: '/care/'
+      preLoaderRoute: typeof CareIndexRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/activities': {
+      id: '/care/activities'
+      path: '/activities'
+      fullPath: '/care/activities'
+      preLoaderRoute: typeof CareActivitiesRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/alerts': {
+      id: '/care/alerts'
+      path: '/alerts'
+      fullPath: '/care/alerts'
+      preLoaderRoute: typeof CareAlertsRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/analytics': {
+      id: '/care/analytics'
+      path: '/analytics'
+      fullPath: '/care/analytics'
+      preLoaderRoute: typeof CareAnalyticsRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/members': {
+      id: '/care/members'
+      path: '/members'
+      fullPath: '/care/members'
+      preLoaderRoute: typeof CareMembersRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/notes': {
+      id: '/care/notes'
+      path: '/notes'
+      fullPath: '/care/notes'
+      preLoaderRoute: typeof CareNotesRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/settings': {
+      id: '/care/settings'
+      path: '/settings'
+      fullPath: '/care/settings'
+      preLoaderRoute: typeof CareSettingsRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/guardian/': {
+      id: '/guardian/'
+      path: '/'
+      fullPath: '/guardian/'
+      preLoaderRoute: typeof GuardianIndexRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/alerts': {
+      id: '/guardian/alerts'
+      path: '/alerts'
+      fullPath: '/guardian/alerts'
+      preLoaderRoute: typeof GuardianAlertsRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/connections': {
+      id: '/guardian/connections'
+      path: '/connections'
+      fullPath: '/guardian/connections'
+      preLoaderRoute: typeof GuardianConnectionsRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/member': {
+      id: '/guardian/member'
+      path: '/member'
+      fullPath: '/guardian/member'
+      preLoaderRoute: typeof GuardianMemberRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/memories': {
+      id: '/guardian/memories'
+      path: '/memories'
+      fullPath: '/guardian/memories'
+      preLoaderRoute: typeof GuardianMemoriesRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/progress': {
+      id: '/guardian/progress'
+      path: '/progress'
+      fullPath: '/guardian/progress'
+      preLoaderRoute: typeof GuardianProgressRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/reminders': {
+      id: '/guardian/reminders'
+      path: '/reminders'
+      fullPath: '/guardian/reminders'
+      preLoaderRoute: typeof GuardianRemindersRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/guardian/settings': {
+      id: '/guardian/settings'
+      path: '/settings'
+      fullPath: '/guardian/settings'
+      preLoaderRoute: typeof GuardianSettingsRouteImport
+      parentRoute: typeof GuardianRoute
+    }
+    '/member/': {
+      id: '/member/'
+      path: '/'
+      fullPath: '/member/'
+      preLoaderRoute: typeof MemberIndexRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/day': {
+      id: '/member/day'
+      path: '/day'
+      fullPath: '/member/day'
+      preLoaderRoute: typeof MemberDayRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/memories': {
+      id: '/member/memories'
+      path: '/memories'
+      fullPath: '/member/memories'
+      preLoaderRoute: typeof MemberMemoriesRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/profile': {
+      id: '/member/profile'
+      path: '/profile'
+      fullPath: '/member/profile'
+      preLoaderRoute: typeof MemberProfileRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/games/': {
+      id: '/member/games/'
+      path: '/games'
+      fullPath: '/member/games/'
+      preLoaderRoute: typeof MemberGamesIndexRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/games/find': {
+      id: '/member/games/find'
+      path: '/games/find'
+      fullPath: '/member/games/find'
+      preLoaderRoute: typeof MemberGamesFindRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/games/match': {
+      id: '/member/games/match'
+      path: '/games/match'
+      fullPath: '/member/games/match'
+      preLoaderRoute: typeof MemberGamesMatchRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/games/pattern': {
+      id: '/member/games/pattern'
+      path: '/games/pattern'
+      fullPath: '/member/games/pattern'
+      preLoaderRoute: typeof MemberGamesPatternRouteImport
+      parentRoute: typeof MemberRoute
+    }
+    '/member/games/signals': {
+      id: '/member/games/signals'
+      path: '/games/signals'
+      fullPath: '/member/games/signals'
+      preLoaderRoute: typeof MemberGamesSignalsRouteImport
+      parentRoute: typeof MemberRoute
+    }
   }
 }
 
+interface CareRouteChildren {
+  CareActivitiesRoute: typeof CareActivitiesRoute
+  CareAlertsRoute: typeof CareAlertsRoute
+  CareAnalyticsRoute: typeof CareAnalyticsRoute
+  CareMembersRoute: typeof CareMembersRoute
+  CareNotesRoute: typeof CareNotesRoute
+  CareSettingsRoute: typeof CareSettingsRoute
+  CareIndexRoute: typeof CareIndexRoute
+}
+
+const CareRouteChildren: CareRouteChildren = {
+  CareActivitiesRoute: CareActivitiesRoute,
+  CareAlertsRoute: CareAlertsRoute,
+  CareAnalyticsRoute: CareAnalyticsRoute,
+  CareMembersRoute: CareMembersRoute,
+  CareNotesRoute: CareNotesRoute,
+  CareSettingsRoute: CareSettingsRoute,
+  CareIndexRoute: CareIndexRoute,
+}
+
+const CareRouteWithChildren = CareRoute._addFileChildren(CareRouteChildren)
+
+interface GuardianRouteChildren {
+  GuardianAlertsRoute: typeof GuardianAlertsRoute
+  GuardianConnectionsRoute: typeof GuardianConnectionsRoute
+  GuardianMemberRoute: typeof GuardianMemberRoute
+  GuardianMemoriesRoute: typeof GuardianMemoriesRoute
+  GuardianProgressRoute: typeof GuardianProgressRoute
+  GuardianRemindersRoute: typeof GuardianRemindersRoute
+  GuardianSettingsRoute: typeof GuardianSettingsRoute
+  GuardianIndexRoute: typeof GuardianIndexRoute
+}
+
+const GuardianRouteChildren: GuardianRouteChildren = {
+  GuardianAlertsRoute: GuardianAlertsRoute,
+  GuardianConnectionsRoute: GuardianConnectionsRoute,
+  GuardianMemberRoute: GuardianMemberRoute,
+  GuardianMemoriesRoute: GuardianMemoriesRoute,
+  GuardianProgressRoute: GuardianProgressRoute,
+  GuardianRemindersRoute: GuardianRemindersRoute,
+  GuardianSettingsRoute: GuardianSettingsRoute,
+  GuardianIndexRoute: GuardianIndexRoute,
+}
+
+const GuardianRouteWithChildren = GuardianRoute._addFileChildren(
+  GuardianRouteChildren,
+)
+
+interface MemberRouteChildren {
+  MemberDayRoute: typeof MemberDayRoute
+  MemberMemoriesRoute: typeof MemberMemoriesRoute
+  MemberProfileRoute: typeof MemberProfileRoute
+  MemberIndexRoute: typeof MemberIndexRoute
+  MemberGamesFindRoute: typeof MemberGamesFindRoute
+  MemberGamesMatchRoute: typeof MemberGamesMatchRoute
+  MemberGamesPatternRoute: typeof MemberGamesPatternRoute
+  MemberGamesSignalsRoute: typeof MemberGamesSignalsRoute
+  MemberGamesIndexRoute: typeof MemberGamesIndexRoute
+}
+
+const MemberRouteChildren: MemberRouteChildren = {
+  MemberDayRoute: MemberDayRoute,
+  MemberMemoriesRoute: MemberMemoriesRoute,
+  MemberProfileRoute: MemberProfileRoute,
+  MemberIndexRoute: MemberIndexRoute,
+  MemberGamesFindRoute: MemberGamesFindRoute,
+  MemberGamesMatchRoute: MemberGamesMatchRoute,
+  MemberGamesPatternRoute: MemberGamesPatternRoute,
+  MemberGamesSignalsRoute: MemberGamesSignalsRoute,
+  MemberGamesIndexRoute: MemberGamesIndexRoute,
+}
+
+const MemberRouteWithChildren =
+  MemberRoute._addFileChildren(MemberRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CareRoute: CareRouteWithChildren,
+  GuardianRoute: GuardianRouteWithChildren,
+  MemberRoute: MemberRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
