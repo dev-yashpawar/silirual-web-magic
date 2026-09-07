@@ -14,7 +14,12 @@ import { Route as CareRouteImport } from './routes/care'
 import { Route as GuardianRouteImport } from './routes/guardian'
 import { Route as MemberRouteImport } from './routes/member'
 import { Route as CareIndexRouteImport } from './routes/care.index'
+import { Route as CareActivitiesRouteImport } from './routes/care.activities'
+import { Route as CareAlertsRouteImport } from './routes/care.alerts'
+import { Route as CareAnalyticsRouteImport } from './routes/care.analytics'
 import { Route as CareMembersRouteImport } from './routes/care.members'
+import { Route as CareNotesRouteImport } from './routes/care.notes'
+import { Route as CareSettingsRouteImport } from './routes/care.settings'
 import { Route as GuardianIndexRouteImport } from './routes/guardian.index'
 import { Route as GuardianAlertsRouteImport } from './routes/guardian.alerts'
 import { Route as GuardianConnectionsRouteImport } from './routes/guardian.connections'
@@ -58,9 +63,34 @@ const CareIndexRoute = CareIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CareRoute,
 } as any)
+const CareActivitiesRoute = CareActivitiesRouteImport.update({
+  id: '/activities',
+  path: '/activities',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareAlertsRoute = CareAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareAnalyticsRoute = CareAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => CareRoute,
+} as any)
 const CareMembersRoute = CareMembersRouteImport.update({
   id: '/members',
   path: '/members',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareNotesRoute = CareNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => CareRoute,
+} as any)
+const CareSettingsRoute = CareSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => CareRoute,
 } as any)
 const GuardianIndexRoute = GuardianIndexRouteImport.update({
@@ -154,7 +184,12 @@ export interface FileRoutesByFullPath {
   '/care': typeof CareRouteWithChildren
   '/guardian': typeof GuardianRouteWithChildren
   '/member': typeof MemberRouteWithChildren
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
   '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
   '/guardian/alerts': typeof GuardianAlertsRoute
   '/guardian/connections': typeof GuardianConnectionsRoute
   '/guardian/member': typeof GuardianMemberRoute
@@ -176,7 +211,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
   '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
   '/guardian/alerts': typeof GuardianAlertsRoute
   '/guardian/connections': typeof GuardianConnectionsRoute
   '/guardian/member': typeof GuardianMemberRoute
@@ -202,7 +242,12 @@ export interface FileRoutesById {
   '/care': typeof CareRouteWithChildren
   '/guardian': typeof GuardianRouteWithChildren
   '/member': typeof MemberRouteWithChildren
+  '/care/activities': typeof CareActivitiesRoute
+  '/care/alerts': typeof CareAlertsRoute
+  '/care/analytics': typeof CareAnalyticsRoute
   '/care/members': typeof CareMembersRoute
+  '/care/notes': typeof CareNotesRoute
+  '/care/settings': typeof CareSettingsRoute
   '/guardian/alerts': typeof GuardianAlertsRoute
   '/guardian/connections': typeof GuardianConnectionsRoute
   '/guardian/member': typeof GuardianMemberRoute
@@ -229,7 +274,12 @@ export interface FileRouteTypes {
     | '/care'
     | '/guardian'
     | '/member'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
     | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
     | '/guardian/alerts'
     | '/guardian/connections'
     | '/guardian/member'
@@ -251,7 +301,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
     | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
     | '/guardian/alerts'
     | '/guardian/connections'
     | '/guardian/member'
@@ -276,7 +331,12 @@ export interface FileRouteTypes {
     | '/care'
     | '/guardian'
     | '/member'
+    | '/care/activities'
+    | '/care/alerts'
+    | '/care/analytics'
     | '/care/members'
+    | '/care/notes'
+    | '/care/settings'
     | '/guardian/alerts'
     | '/guardian/connections'
     | '/guardian/member'
@@ -341,11 +401,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareIndexRouteImport
       parentRoute: typeof CareRoute
     }
+    '/care/activities': {
+      id: '/care/activities'
+      path: '/activities'
+      fullPath: '/care/activities'
+      preLoaderRoute: typeof CareActivitiesRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/alerts': {
+      id: '/care/alerts'
+      path: '/alerts'
+      fullPath: '/care/alerts'
+      preLoaderRoute: typeof CareAlertsRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/analytics': {
+      id: '/care/analytics'
+      path: '/analytics'
+      fullPath: '/care/analytics'
+      preLoaderRoute: typeof CareAnalyticsRouteImport
+      parentRoute: typeof CareRoute
+    }
     '/care/members': {
       id: '/care/members'
       path: '/members'
       fullPath: '/care/members'
       preLoaderRoute: typeof CareMembersRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/notes': {
+      id: '/care/notes'
+      path: '/notes'
+      fullPath: '/care/notes'
+      preLoaderRoute: typeof CareNotesRouteImport
+      parentRoute: typeof CareRoute
+    }
+    '/care/settings': {
+      id: '/care/settings'
+      path: '/settings'
+      fullPath: '/care/settings'
+      preLoaderRoute: typeof CareSettingsRouteImport
       parentRoute: typeof CareRoute
     }
     '/guardian/': {
@@ -471,12 +566,22 @@ declare module '@tanstack/react-router' {
 }
 
 interface CareRouteChildren {
+  CareActivitiesRoute: typeof CareActivitiesRoute
+  CareAlertsRoute: typeof CareAlertsRoute
+  CareAnalyticsRoute: typeof CareAnalyticsRoute
   CareMembersRoute: typeof CareMembersRoute
+  CareNotesRoute: typeof CareNotesRoute
+  CareSettingsRoute: typeof CareSettingsRoute
   CareIndexRoute: typeof CareIndexRoute
 }
 
 const CareRouteChildren: CareRouteChildren = {
+  CareActivitiesRoute: CareActivitiesRoute,
+  CareAlertsRoute: CareAlertsRoute,
+  CareAnalyticsRoute: CareAnalyticsRoute,
   CareMembersRoute: CareMembersRoute,
+  CareNotesRoute: CareNotesRoute,
+  CareSettingsRoute: CareSettingsRoute,
   CareIndexRoute: CareIndexRoute,
 }
 
