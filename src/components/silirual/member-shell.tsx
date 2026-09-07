@@ -1,6 +1,7 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { Gamepad2, HeartHandshake, House, ListChecks, UserRound } from "lucide-react";
 import { useSilirual } from "@/lib/silirual/store";
+import { RoleSwitcher } from "@/components/silirual/role-switcher";
 
 const items = [
   { to: "/member", labelKey: "nav.home", icon: House, exact: true },
@@ -28,6 +29,9 @@ export function MemberShell() {
             {online ? "🟢 " + t("common.synced") : "🟡 " + t("common.offline")}
           </span>
           <span className="text-lg font-medium">{member.name}</span>
+        </div>
+        <div className="mx-auto w-full max-w-3xl px-4 pb-3">
+          <RoleSwitcher />
         </div>
       </header>
 
