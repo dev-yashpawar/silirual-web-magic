@@ -9,7 +9,7 @@ function memberName(id: string) {
   return members.find((m) => m.id === id)?.name ?? id;
 }
 
-export default function noop() {}
+
 
 function Activities() {
   return (
