@@ -1,5 +1,6 @@
 import { Link, Outlet, type LinkProps } from "@tanstack/react-router";
 import { useSilirual } from "@/lib/silirual/store";
+import { RoleSwitcher } from "@/components/silirual/role-switcher";
 
 export interface CareNavItem {
   to: NonNullable<LinkProps["to"]>;
@@ -32,13 +33,16 @@ export function CareShell({
                 {title} · {subtitle}
               </p>
             </div>
-            <span
-              className={`rounded-full px-3 py-1 text-sm ${
-                online ? "bg-success-soft text-success" : "bg-warning-soft text-warning-foreground"
-              }`}
-            >
-              {online ? "🟢 Synced" : "🟡 Offline — will sync later"}
-            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span
+                className={`rounded-full px-3 py-1 text-sm ${
+                  online ? "bg-success-soft text-success" : "bg-warning-soft text-warning-foreground"
+                }`}
+              >
+                {online ? "🟢 Synced" : "🟡 Offline — will sync later"}
+              </span>
+              <RoleSwitcher />
+            </div>
           </div>
           <nav className="mt-4 flex flex-wrap gap-2" aria-label={`${title} sections`}>
             {items.map((item) => (
